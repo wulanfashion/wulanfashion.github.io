@@ -3,84 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wulan Fashion Store</title>
+    <title>Wulan Fashion Store- Katalog Koleksi</title>
     <style>
-        /* Gaya Dasar */
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background-color: #f9f9f9; color: #333; }
-        header { background: #ff69b4; color: white; padding: 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        
-        /* Sistem Grid Produk */
-        .product-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); /* 2 kolom di HP */
-            gap: 15px; 
-            padding: 15px; 
-            max-width: 1200px; 
-            margin: auto;
-        }
+    .product-card:hover img {
+    transform: scale(1.05); /* Gambar sedikit membesar */
+    transition: transform 0.3s ease; /* Transisi halus selama 0.3 detik */
+}
+    body {
+        background-color: #FDFBF7;
+        color: #4A4A4A;
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        text-align: center;
+    }
 
-        /* Kartu Produk */
-        .product-card { 
-            background: #fff; 
-            border-radius: 10px; 
-            overflow: hidden; 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05); 
-            text-align: center;
-            transition: 0.3s;
-        }
-        .product-card:hover { transform: translateY(-5px); }
-        .product-card img { width: 100%; height: 180px; object-fit: cover; }
-        .product-info { padding: 10px; }
-        .product-info h3 { font-size: 14px; margin: 10px 0; color: #444; }
-        .product-info p { font-weight: bold; color: #ff69b4; margin-bottom: 10px; }
+    header {
+        background-color: #F5F5DC;
+        padding: 20px 10px;
+        border-bottom: 1px solid #E8DCCA;
+        position: sticky;
+    top: 0;
+    z-index: 1000; /* Agar header selalu di atas gambar produk saat di-scroll */
+    }
 
-        /* Tombol WhatsApp */
-        .btn-wa { 
-            display: inline-block; 
-            background: #25d366; 
-            color: white; 
-            text-decoration: none; 
-            padding: 8px 15px; 
-            border-radius: 5px; 
-            font-size: 12px;
-            font-weight: bold;
-        }
+    header h1 { 
+        margin: 0; 
+        color: #8C7355; 
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+    }
 
-        /* Responsif untuk Layar Besar (Tablet/PC) */
-        @media (min-width: 768px) {
-            .product-grid { grid-template-columns: repeat(4, 1fr); } /* 4 kolom */
-            .product-card img { height: 250px; }
-        }
-    </style>
-</head>
-<body>
+    /* PENGATURAN 2 KOLOM */
+    .gallery {
+    display: grid;
+    /* Ini rahasianya: otomatis menyesuaikan jumlah kolom berdasarkan lebar layar */
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+    gap: 15px;
+    padding: 20px;
+    box-sizing: border-box;
+    max-width: 1200px; /* Agar konten tidak terlalu lebar di monitor besar */
+    margin: 0 auto;    /* Menaruh gallery tepat di tengah layar laptop */
+}
+
+    .product-card {
+    position: relative; /* Ini adalah 'jangkar' agar label tidak melayang liar */
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.promo-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ee4d2d;
+    color: white;
+    padding: 4px 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border-radius: 20px;
+    z-index: 10;
+}
+
+.new-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #25d366; /* Warna hijau segar */
+    color: white;
+    padding: 5px 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border-radius: 20px; /* Bentuk lonjong agar lebih modern */
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+    .product-card img {
+        width: 100%;
+        aspect-ratio: 1 / 1; /* Foto jadi kotak agar sejajar rapi */
+        object-fit: cover;
+        display: block;
+    }
+
+    .info {
+    padding: 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    /* Ini kunci agar harga dan tombol selalu berada di posisi yang sama */
+    justify-content: space-between; 
+    /* Tambahkan min-height agar kotak teks memiliki tinggi minimal yang sama */
+    min-height: 110px; 
+}
+   
+    
+    .info h3 { 
+        margin: 0; 
+        font-size: 0.9rem; /* Ukuran teks judul diperkecil agar muat */
+        height: 2.4em;    /* Menjaga tinggi judul tetap sama */
+        overflow: hidden;
+    }
+
+    .price { 
+        color: #A68A64; 
+        font-weight: bold; 
+        font-size: 0.9rem; 
+        margin: 8px 0; 
+    }
+
+    .btn-shopee {
+        display: block;
+        background-color: #ee4d2d;
+        color: white !important;
+        padding: 10px 5px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 0.8rem; /* Ukuran teks tombol disesuaikan */
+    }
+    .wa-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+</style>
+
 
 <header>
     <h1>Wulan Fashion Store</h1>
-    <p>Koleksi Muslimah Terbaru & Elegan</p>
+    <p>Pilihan Anggun untuk Muslimah Modern</p>
 </header>
 
-<div class="product-grid">
-    
-    <div class="product-card">
-        <img src="produk1.jpg" alt="Gamis Cantik">
-        <div class="product-info">
-            <h3>Gamis Syari Premium</h3>
-            <p>Rp 185.000</p>
-            <a href="https://wa.me/62812345678?text=Halo%20Wulan%20Fashion,%20saya%20mau%20order%20Gamis%20Syari" class="btn-wa">Pesan via WA</a>
+
+    <div class="gallery">
+        
+                <div class="product-card">
+            <div class="promo-badge">PROMO 50%</div>
+            <img src="https://down-id.img.susercontent.com/file/id-11134207-7rasa-m4ttoz6x4klcb0@resize_w750_nl.webp" alt="Zenira Gamis Syahira">
+            <div class="info">
+                <h3>Zenira Gamis Syahira</h3>
+                <div class="price">Rp 350.000</div>
+                <a href="https://collshp.com/suryacollection0704" class="btn-shopee">Beli di Shopee</a>
+            </div>
         </div>
+
+
+        <div class="product-card">
+            <img src="https://down-id.img.susercontent.com/file/id-11134207-8224v-mgqnog02rrwo0e@resize_w750_nl.webp" alt="Hijab Pashmina">
+            <div class="info">
+                <h3>Pashmina Ceruty Baby Doll</h3>
+                <div class="price">Rp 33.600</div>
+                <a href="https://collshp.com/suryacollection0704" class="btn-shopee">Beli di Shopee</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="new-badge">NEW ARRIVAL</div>
+            <img src="https://down-id.img.susercontent.com/file/id-11134207-7rbkb-m9qv1n0xsw1f82@resize_w750_nl.webp" alt="Outer Muslimah">
+            <div class="info">
+                <h3>Daily Set Creamy</h3>
+                <div class="price">Rp 210.000</div>
+                <a href="https://collshp.com/suryacollection0704" class="btn-shopee">Beli di Shopee</a>
+            </div>
+        </div>
+
     </div>
 
-    <div class="product-card">
-        <img src="produk2.jpg" alt="Outer Cantik">
-        <div class="product-info">
-            <h3>Outer Casual Maroon</h3>
-            <p>Rp 125.000</p>
-            <a href="https://wa.me/6282119406478?text=Halo%20Wulan%20Fashion,%20saya%20mau%20order%20Outer%20Maroon" class="btn-wa">Pesan via WA</a>
-        </div>
-    </div>
-
-    </div>
+    <footer style="padding: 40px; font-size: 0.8rem; color: #999;">
+        &copy; 2024 Wulan Fashion. All Rights Reserved.
+    </footer>
+    <a href="https://wa.me/6282119406478?text=Halo%20Wulan%20Fashion,%20saya%20mau%20tanya%20produk..." class="wa-float" target="_blank">
+    <span style="font-size: 14px; font-weight: bold;">WA</span>
+</a>
 
 </body>
 </html>
