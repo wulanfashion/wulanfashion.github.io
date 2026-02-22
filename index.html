@@ -3,194 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wulan Fashion Store- Katalog Koleksi</title>
+    <title>Wulan Fashion Store - Katalog Rekomendasi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-    .product-card:hover img {
-    transform: scale(1.05); /* Gambar sedikit membesar */
-    transition: transform 0.3s ease; /* Transisi halus selama 0.3 detik */
-}
-    body {
-        background-color: #FDFBF7;
-        color: #4A4A4A;
-        margin: 0;
-        font-family: 'Segoe UI', sans-serif;
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; background-color: #FDFBF7; color: #4A4A4A; margin: 0; }
+    
+    .hero {
+        position: relative;
+        height: 60vh;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: url('https://images.unsplash.com/photo-1520006403909-838d6b92c22e?q=80&w=2030&auto=format&fit=crop') no-repeat center center/cover;
+        color: white;
         text-align: center;
     }
 
-    header {
-        background-color: #F5F5DC;
-        padding: 20px 10px;
-        border-bottom: 1px solid #E8DCCA;
-        position: sticky;
-    top: 0;
-    z-index: 1000; /* Agar header selalu di atas gambar produk saat di-scroll */
+    .hero::after {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1;
     }
 
-    header h1 { 
-        margin: 0; 
-        color: #8C7355; 
-        font-size: 1.5rem;
+    .hero-content { position: relative; z-index: 2; padding: 20px; }
+
+    .hero-content h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.8rem;
         letter-spacing: 2px;
+        text-transform: uppercase;
+        margin: 0;
     }
 
-    /* PENGATURAN 2 KOLOM */
-    .gallery {
-    display: grid;
-    /* Ini rahasianya: otomatis menyesuaikan jumlah kolom berdasarkan lebar layar */
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
-    gap: 15px;
-    padding: 20px;
-    box-sizing: border-box;
-    max-width: 1200px; /* Agar konten tidak terlalu lebar di monitor besar */
-    margin: 0 auto;    /* Menaruh gallery tepat di tengah layar laptop */
-}
+    .hero-content p { font-size: 1.1rem; margin-top: 10px; opacity: 0.9; }
 
-    .product-card {
-    position: relative; /* Ini adalah 'jangkar' agar label tidak melayang liar */
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.promo-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: #ee4d2d;
-    color: white;
-    padding: 4px 12px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    border-radius: 20px;
-    z-index: 10;
-}
-
-.new-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: #25d366; /* Warna hijau segar */
-    color: white;
-    padding: 5px 12px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    border-radius: 20px; /* Bentuk lonjong agar lebih modern */
-    z-index: 10;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-    .product-card img {
-        width: 100%;
-        aspect-ratio: 1 / 1; /* Foto jadi kotak agar sejajar rapi */
-        object-fit: cover;
-        display: block;
+    .category-nav {
+        display: flex; justify-content: flex-start; gap: 10px; padding: 15px;
+        background: #fff; position: sticky; top: 0; z-index: 999;
+        overflow-x: auto; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        border-bottom: 1px solid #eee;
     }
-
-    .info {
-    padding: 10px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    /* Ini kunci agar harga dan tombol selalu berada di posisi yang sama */
-    justify-content: space-between; 
-    /* Tambahkan min-height agar kotak teks memiliki tinggi minimal yang sama */
-    min-height: 110px; 
-}
-   
     
-    .info h3 { 
-        margin: 0; 
-        font-size: 0.9rem; /* Ukuran teks judul diperkecil agar muat */
-        height: 2.4em;    /* Menjaga tinggi judul tetap sama */
-        overflow: hidden;
+    .btn-cat {
+        padding: 8px 18px; border: 1px solid #ff69b4; border-radius: 20px;
+        background: white; color: #ff69b4; text-decoration: none; font-size: 0.8rem; font-weight: bold;
     }
 
-    .price { 
-        color: #A68A64; 
-        font-weight: bold; 
-        font-size: 0.9rem; 
-        margin: 8px 0; 
+    .main-category-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+        gap: 25px; padding: 30px 20px; max-width: 1200px; margin: 0 auto;
     }
 
-    .btn-shopee {
-        display: block;
-        background-color: #ee4d2d;
-        color: white !important;
-        padding: 10px 5px;
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: bold;
-        font-size: 0.8rem; /* Ukuran teks tombol disesuaikan */
+    .category-box {
+        display: block; text-decoration: none; overflow: hidden;
+        background: white; border-radius: 15px; transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
+    
+    .category-box:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
+
+    .category-box img {
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+    }
+
+    .category-box .title { padding: 15px; font-size: 1.2rem; font-weight: 600; color: #8C7355; }
+    .category-box .description { font-size: 0.9rem; color: #777; padding: 0 15px 15px; }
+
+    footer { padding: 40px; font-size: 0.8rem; color: #999; text-align: center; }
+
     .wa-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #25d366;
-    color: white;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 30px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-}
+        position: fixed; bottom: 20px; right: 20px; background-color: #25d366;
+        color: white; width: 55px; height: 55px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; text-decoration: none;
+        z-index: 10000; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    }
 </style>
+</head>
+<body>
 
-
-<header>
-    <h1>Wulan Fashion Store</h1>
-    <p>Pilihan Anggun untuk Muslimah Modern</p>
-</header>
-
-
-    <div class="gallery">
-        
-                <div class="product-card">
-            <div class="promo-badge">PROMO 50%</div>
-            <img src="https://down-id.img.susercontent.com/file/id-11134207-7rasa-m4ttoz6x4klcb0@resize_w750_nl.webp" alt="Zenira Gamis Syahira">
-            <div class="info">
-                <h3>Zenira Gamis Syahira</h3>
-                <div class="price">Rp 350.000</div>
-                <a href="https://collshp.com/suryacollection0704" class="btn-shopee">Beli di Shopee</a>
-            </div>
-        </div>
-
-
-        <div class="product-card">
-            <img src="https://down-id.img.susercontent.com/file/id-11134207-8224v-mgqnog02rrwo0e@resize_w750_nl.webp" alt="Hijab Pashmina">
-            <div class="info">
-                <h3>Pashmina Ceruty Baby Doll</h3>
-                <div class="price">Rp 33.600</div>
-                <a href="https://collshp.com/suryacollection0704" class="btn-shopee">Beli di Shopee</a>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="new-badge">NEW ARRIVAL</div>
-            <img src="https://down-id.img.susercontent.com/file/id-11134207-7rbkb-m9qv1n0xsw1f82@resize_w750_nl.webp" alt="Outer Muslimah">
-            <div class="info">
-                <h3>Daily Set Creamy</h3>
-                <div class="price">Rp 210.000</div>
-                <a href="https://collshp.com/suryacollection0704" class="btn-shopee">Beli di Shopee</a>
-            </div>
-        </div>
-
+<div class="hero">
+    <div class="hero-content">
+        <h1>Wulan Fashion</h1>
+        <p>Your Daily Dose of Elegant Style</p>
     </div>
+</div>
 
-    <footer style="padding: 40px; font-size: 0.8rem; color: #999;">
-        &copy; 2024 Wulan Fashion. All Rights Reserved.
-    </footer>
-    <a href="https://wa.me/6282119406478?text=Halo%20Wulan%20Fashion,%20saya%20mau%20tanya%20produk..." class="wa-float" target="_blank">
-    <span style="font-size: 14px; font-weight: bold;">WA</span>
+<div class="category-nav">
+    <a href="#muslimah-elegan" class="btn-cat">Muslimah Elegan</a>
+    <a href="#polo-knit" class="btn-cat">Polo Knit Pria</a>
+    <a href="#ootd-wanita" class="btn-cat">OOTD Wanita</a>
+    <a href="#ootd-pria" class="btn-cat">OOTD Pria</a>
+    <a href="#ootd-shoes" class="btn-cat">OOTD Shoes</a>
+    <a href="#anak" class="btn-cat">Anak</a>
+    <a href="#link-lainnya" class="btn-cat">Link Lainnya</a>
+</div>
+
+<div class="main-category-grid">
+    
+    <a href="muslimah.html" class="category-box" id="muslimah-elegan">
+        <img src="https://down-id.img.susercontent.com/file/id-11134207-7rasa-m4ttoz6x4klcb0@resize_w750_nl.webp" alt="Muslimah Elegan">
+        <div class="title">Muslimah Elegan</div>
+        <div class="description">Gamis syar'i, tunik modis, dan khimar pilihan.</div>
+    </a>
+
+    <a href="polo-knit.html" class="category-box" id="polo-knit">
+        <img src="https://images.unsplash.com/photo-1621297597526-b8c7e0b57f20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Polo Knit Pria">
+        <div class="title">Polo Knit Pria</div>
+        <div class="description">Koleksi polo rajut nyaman untuk pria modern.</div>
+    </a>
+
+    <a href="ootd-wanita.html" class="category-box" id="ootd-wanita">
+        <img src="https://images.unsplash.com/photo-1549405021-3e4b7b2b0a3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="OOTD Wanita Modern">
+        <div class="title">OOTD Wanita Modern</div>
+        <div class="description">Tampil stylish dengan outfit kekinian.</div>
+    </a>
+
+    <a href="ootd-pria.html" class="category-box" id="ootd-pria">
+        <img src="https://images.unsplash.com/photo-1621297597526-b8c7e0b57f20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="OOTD Pria Modern">
+        <div class="title">OOTD Pria Modern</div>
+        <div class="description">Gaya casual hingga formal untuk pria.</div>
+    </a>
+
+    <a href="ootd-shoes.html" class="category-box" id="ootd-shoes">
+        <img src="https://images.unsplash.com/photo-1549298492-c7c458d6b8c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="OOTD Shoes">
+        <div class="title">OOTD Shoes</div>
+        <div class="description">Koleksi sepatu trendi untuk melengkapi gayamu.</div>
+    </a>
+
+    <a href="anak.html" class="category-box" id="anak">
+        <img src="https://images.unsplash.com/photo-1596489397631-f15598d1a123?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Anak">
+        <div class="title">Anak</div>
+        <div class="description">Fashion lucu dan nyaman untuk si kecil.</div>
+    </a>
+
+    <a href="link-lainnya.html" class="category-box" id="link-lainnya">
+        <img src="https://images.unsplash.com/photo-1606900223630-f2010c7f4284?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Link Lainnya">
+        <div class="title">Link Lainnya</div>
+        <div class="description">Rekomendasi produk menarik lainnya.</div>
+    </a>
+
+</div>
+
+<footer>
+    &copy; 2024 Wulan Fashion. All Rights Reserved.
+</footer>
+
+<a href="https://wa.me/6282119406478?text=Halo%20Wulan%20Fashion,%20saya%20mau%20bertanya%20tentang%20rekomendasi%20produk." class="wa-float" target="_blank">
+    WA
 </a>
 
 </body>
